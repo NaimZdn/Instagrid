@@ -62,6 +62,9 @@
                                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="Plus"/>
+                                                        <connections>
+                                                            <action selector="addPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qGR-WS-AYt"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ami-7d-lOI">
                                                         <rect key="frame" x="147.66666666666663" y="0.0" width="132.33333333333337" height="132.66666666666666"/>
@@ -71,6 +74,9 @@
                                                         <state key="normal" image="Plus">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="18" scale="default"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="addPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KG9-fg-xai"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -80,22 +86,20 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qds-63-Jcc">
                                                         <rect key="frame" x="0.0" y="0.0" width="132.66666666666666" height="132.33333333333334"/>
                                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" image="Plus">
-                                                            <backgroundConfiguration key="background">
-                                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            </backgroundConfiguration>
-                                                        </buttonConfiguration>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" image="Plus"/>
+                                                        <connections>
+                                                            <action selector="addPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lng-sx-KTc"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OPm-yq-T7S">
                                                         <rect key="frame" x="147.66666666666663" y="0.0" width="132.33333333333337" height="132.33333333333334"/>
                                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" image="Plus">
-                                                            <backgroundConfiguration key="background">
-                                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            </backgroundConfiguration>
-                                                        </buttonConfiguration>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" image="Plus"/>
+                                                        <connections>
+                                                            <action selector="addPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MuG-YP-N2e"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>

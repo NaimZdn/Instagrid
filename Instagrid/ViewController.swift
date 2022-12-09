@@ -10,6 +10,9 @@ import Photos
 
 class ViewController: UIViewController {
     
+    private var buttonImage: UIButton?
+    private var imagePicked: UIImagePickerController?
+    
     
     @IBOutlet weak var swipeUpView: UIStackView!
     
@@ -37,10 +40,27 @@ class ViewController: UIViewController {
         buttonLayout1.tag = 1
         buttonLayout2.tag = 2
         buttonLayout3.tag = 3
+        
+        layout3Selected.isHidden = false
      
     }
     
-    
+    @IBAction func addPhoto(_ sender: UIButton) {
+        if checkLibraryAuthorization() {
+            buttonImage = sender
+            imagePicked = UIImagePickerController()
+            imagePicked?.delegate = self
+            imagePicked?.sourceType = .savedPhotosAlbum
+            guard let imagePickerSecurity = imagePicked else { return }
+
+            present(imagePickerSecurity, animated: true)
+            
+        } else {
+            let accessDenied = UIAlertController(title: "Acces denied", message: "Please authorize the access inside your phone parameters's", preferredStyle: UIAlertController.Style.alert)
+            accessDenied.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(accessDenied, animated: true, completion: nil)
+        }
+    }
 
     @IBAction func layoutButtonsTapped(_ sender: UIButton) {
         switch sender.tag {
@@ -119,8 +139,18 @@ class ViewController: UIViewController {
        
         return status
     }
-
-    
-
 }
 
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ _picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any] ) {
+        
+        if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            buttonImage?.setImage(originalImage, for: .normal)
+            dismiss(animated: true) {
+                self.imagePicked = nil
+                self.buttonImage = nil
+            }
+        }
+    }
+}
