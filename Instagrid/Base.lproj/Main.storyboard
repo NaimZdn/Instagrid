@@ -24,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instagrid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4o-xh-PMa">
-                                <rect key="frame" x="126" y="57" width="138.33333333333337" height="45.333333333333343"/>
+                                <rect key="frame" x="126.00000000000001" y="57" width="138.33333333333337" height="45.333333333333343"/>
                                 <fontDescription key="fontDescription" name="ThirstySoftRegular" family="Thirsty Soft" pointSize="35"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -156,13 +156,23 @@
                                                 <state key="normal" image="Layout 1">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="18" scale="default"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="layoutButtonsTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yUN-C4-z9G"/>
+                                                </connections>
                                             </button>
+                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Selected" translatesAutoresizingMaskIntoConstraints="NO" id="cfZ-XB-wnj">
+                                                <rect key="frame" x="0.0" y="0.0" width="93.333333333333329" height="90.666666666666671"/>
+                                            </imageView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="hUp-LE-8Cx" firstAttribute="leading" secondItem="iKl-FP-ico" secondAttribute="leading" id="0z5-Vc-ptz"/>
                                             <constraint firstItem="hUp-LE-8Cx" firstAttribute="top" secondItem="iKl-FP-ico" secondAttribute="top" id="HWL-B0-LMY"/>
                                             <constraint firstAttribute="trailing" secondItem="hUp-LE-8Cx" secondAttribute="trailing" id="Ht2-DA-m5U"/>
+                                            <constraint firstAttribute="bottom" secondItem="cfZ-XB-wnj" secondAttribute="bottom" id="IxB-3f-gUh"/>
                                             <constraint firstAttribute="bottom" secondItem="hUp-LE-8Cx" secondAttribute="bottom" id="jy7-35-7ug"/>
+                                            <constraint firstAttribute="trailing" secondItem="cfZ-XB-wnj" secondAttribute="trailing" id="lZc-hj-jMh"/>
+                                            <constraint firstItem="cfZ-XB-wnj" firstAttribute="leading" secondItem="iKl-FP-ico" secondAttribute="leading" id="nIA-eI-pTM"/>
+                                            <constraint firstItem="cfZ-XB-wnj" firstAttribute="top" secondItem="iKl-FP-ico" secondAttribute="top" id="uIg-CD-Ag8"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J9i-O6-6YR">
@@ -172,13 +182,23 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="93.333333333333329" height="90.666666666666671"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="Layout 2"/>
+                                                <connections>
+                                                    <action selector="layoutButtonsTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wMX-VN-XHz"/>
+                                                </connections>
                                             </button>
+                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Selected" translatesAutoresizingMaskIntoConstraints="NO" id="eKx-vK-Pmv">
+                                                <rect key="frame" x="0.0" y="0.0" width="93.333333333333329" height="90.666666666666671"/>
+                                            </imageView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="eKx-vK-Pmv" secondAttribute="trailing" id="3YK-Pd-IFV"/>
+                                            <constraint firstAttribute="bottom" secondItem="eKx-vK-Pmv" secondAttribute="bottom" id="bt9-HZ-5Pe"/>
                                             <constraint firstItem="uUk-nE-QZV" firstAttribute="top" secondItem="J9i-O6-6YR" secondAttribute="top" id="dq8-o9-q2C"/>
+                                            <constraint firstItem="eKx-vK-Pmv" firstAttribute="top" secondItem="J9i-O6-6YR" secondAttribute="top" id="fvy-qj-pN5"/>
                                             <constraint firstItem="uUk-nE-QZV" firstAttribute="leading" secondItem="J9i-O6-6YR" secondAttribute="leading" id="hc0-UE-ZTZ"/>
                                             <constraint firstAttribute="bottom" secondItem="uUk-nE-QZV" secondAttribute="bottom" id="rfm-Ye-iSI"/>
                                             <constraint firstAttribute="trailing" secondItem="uUk-nE-QZV" secondAttribute="trailing" id="sR1-mg-gE5"/>
+                                            <constraint firstItem="eKx-vK-Pmv" firstAttribute="leading" secondItem="J9i-O6-6YR" secondAttribute="leading" id="xbk-V3-ccW"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PC9-cO-saw">
@@ -190,21 +210,38 @@
                                                 <state key="normal" image="Layout 3">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="layoutButtonsTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sfP-Pr-Qne"/>
+                                                </connections>
                                             </button>
+                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Selected" translatesAutoresizingMaskIntoConstraints="NO" id="b17-YH-DOU">
+                                                <rect key="frame" x="0.0" y="0.0" width="93.333333333333329" height="90.666666666666671"/>
+                                            </imageView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="b17-YH-DOU" firstAttribute="leading" secondItem="PC9-cO-saw" secondAttribute="leading" id="4JZ-73-qBd"/>
+                                            <constraint firstAttribute="bottom" secondItem="b17-YH-DOU" secondAttribute="bottom" id="Gw2-b3-QK5"/>
+                                            <constraint firstAttribute="trailing" secondItem="b17-YH-DOU" secondAttribute="trailing" id="QBc-YE-bRz"/>
                                             <constraint firstItem="GON-Rl-bIq" firstAttribute="top" secondItem="PC9-cO-saw" secondAttribute="top" id="RhL-OC-Bpf"/>
                                             <constraint firstItem="GON-Rl-bIq" firstAttribute="leading" secondItem="PC9-cO-saw" secondAttribute="leading" id="Xcm-Oi-qiy"/>
                                             <constraint firstAttribute="bottom" secondItem="GON-Rl-bIq" secondAttribute="bottom" id="ZbX-hy-7HX"/>
+                                            <constraint firstItem="b17-YH-DOU" firstAttribute="top" secondItem="PC9-cO-saw" secondAttribute="top" id="iR9-TP-nct"/>
                                             <constraint firstAttribute="trailing" secondItem="GON-Rl-bIq" secondAttribute="trailing" id="kQQ-Un-YZe"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="width" secondItem="mx1-p5-6R8" secondAttribute="height" multiplier="60:190" id="l0b-YQ-dAq"/>
                                     <constraint firstAttribute="width" secondItem="mx1-p5-6R8" secondAttribute="height" multiplier="400:117" id="xTB-ti-zbE"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="l0b-YQ-dAq"/>
+                                    </mask>
+                                </variation>
                                 <variation key="heightClass=compact" axis="vertical">
                                     <mask key="constraints">
+                                        <include reference="l0b-YQ-dAq"/>
                                         <exclude reference="xTB-ti-zbE"/>
                                     </mask>
                                 </variation>
@@ -264,10 +301,23 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="buttonDownLeft" destination="qds-63-Jcc" id="6Ro-we-c1U"/>
+                        <outlet property="buttonDownRight" destination="OPm-yq-T7S" id="wq6-6k-Poa"/>
+                        <outlet property="buttonLayout1" destination="hUp-LE-8Cx" id="tmI-Iu-Xbv"/>
+                        <outlet property="buttonLayout2" destination="uUk-nE-QZV" id="FWQ-jo-DPF"/>
+                        <outlet property="buttonLayout3" destination="GON-Rl-bIq" id="in4-Ak-cIR"/>
+                        <outlet property="buttonUpLeft" destination="Iwh-1f-VcF" id="rE3-fb-jzp"/>
+                        <outlet property="buttonUpRight" destination="ami-7d-lOI" id="PN0-bZ-t4c"/>
+                        <outlet property="layout1Selected" destination="cfZ-XB-wnj" id="BHl-YI-i6n"/>
+                        <outlet property="layout2Selected" destination="eKx-vK-Pmv" id="BQd-tZ-p6W"/>
+                        <outlet property="layout3Selected" destination="b17-YH-DOU" id="DSH-6y-kRJ"/>
+                        <outlet property="swipeUpView" destination="NZx-vA-fBD" id="1QA-kv-eWO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="133.09859154929578" y="1.875"/>
+            <point key="canvasLocation" x="132.30769230769229" y="1.4218009478672986"/>
         </scene>
     </scenes>
     <resources>
@@ -277,5 +327,6 @@
         <image name="Layout 2" width="26.666666030883789" height="26.666666030883789"/>
         <image name="Layout 3" width="26.666666030883789" height="26.666666030883789"/>
         <image name="Plus" width="13.333333015441895" height="13.333333015441895"/>
+        <image name="Selected" width="26.666666030883789" height="26.666666030883789"/>
     </resources>
 </document>
