@@ -45,6 +45,10 @@ class ViewController: UIViewController {
      
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+    
     @IBAction func addPhoto(_ sender: UIButton) {
         if checkLibraryAuthorization() {
             buttonImage = sender
