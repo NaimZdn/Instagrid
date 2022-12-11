@@ -30,6 +30,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var layout3Selected: UIImageView!
     
     
+    @IBOutlet weak var gridCentralView: UIView!
+    @IBOutlet weak var centerYConstraint: NSLayoutConstraint!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
