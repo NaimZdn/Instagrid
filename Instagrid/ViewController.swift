@@ -72,16 +72,27 @@ class ViewController: UIViewController {
             
         } else if UIDevice.current.orientation.isLandscape, recognizer.direction == .left {
             
+            self.animationLandscape(constraint: -UIScreen.main.bounds.width)
+            
         }
     }
     
     func animationPortrait(constraint: CGFloat) {
-        UIView.animate(withDuration: 0.4) {
+        UIView.animate(withDuration: 0.6) {
             self.centerYConstraint.constant = constraint
             self.view.layoutIfNeeded()
             
         }
     }
+    
+    func animationLandscape(constraint: CGFloat) {
+        UIView.animate(withDuration: 0.6) {
+            self.centerXConstraint.constant = constraint
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    
     
     @IBAction func addPhoto(_ sender: UIButton) {
         if checkLibraryAuthorization() {
