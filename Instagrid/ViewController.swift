@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var gridCentralView: UIView!
     @IBOutlet weak var centerYConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var centerXConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,10 +47,40 @@ class ViewController: UIViewController {
         
         layout3Selected.isHidden = false
      
+        addSwipGestureRecognizer()
     }
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
+    }
+    
+    func addSwipGestureRecognizer() {
+        let swipeUpGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeGridCentralView(_:)))
+        swipeUpGestureRecognizer.direction = .up
+        let swipeLeftGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeGridCentralView(_:)))
+        swipeLeftGestureRecognizer.direction = .left
+        
+        view.addGestureRecognizer(swipeUpGestureRecognizer)
+        view.addGestureRecognizer(swipeLeftGestureRecognizer)
+    }
+    
+    @objc func swipeGridCentralView(_ recognizer: UISwipeGestureRecognizer) {
+ 
+        if UIDevice.current.orientation.isPortrait, recognizer.direction == .up{
+            
+            self.animationPortrait(constraint: -UIScreen.main.bounds.height)
+            
+        } else if UIDevice.current.orientation.isLandscape, recognizer.direction == .left {
+            
+        }
+    }
+    
+    func animationPortrait(constraint: CGFloat) {
+        UIView.animate(withDuration: 0.4) {
+            self.centerYConstraint.constant = constraint
+            self.view.layoutIfNeeded()
+            
+        }
     }
     
     @IBAction func addPhoto(_ sender: UIButton) {
