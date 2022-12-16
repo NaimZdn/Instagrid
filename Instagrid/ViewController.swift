@@ -12,9 +12,8 @@ class ViewController: UIViewController {
     
     private var buttonImage: UIButton?
     private var imagePicked: UIImagePickerController?
-    private var imageTest: UIImageView?
+    private var buttonImageView: UIImageView?
     private var activityViewController: UIActivityViewController?
-    private var imageTapped: UIImageView?
     
     @IBOutlet weak var swipeUpView: UIStackView!
     
@@ -47,7 +46,7 @@ class ViewController: UIViewController {
         layout3Selected.isHidden = false
         
         addSwipGestureRecognizer()
-        tapGesture()
+        buttonImageViewTapped()
         
     }
     
@@ -93,7 +92,7 @@ class ViewController: UIViewController {
             
             buttonUpRight.isHidden = true
             buttonDownRight.isHidden = false
-            isSelected()
+            layoutIsSelected()
             
         case 2:
             buttonLayout1.isSelected = false
@@ -102,7 +101,7 @@ class ViewController: UIViewController {
             
             buttonUpRight.isHidden = false
             buttonDownRight.isHidden = true
-            isSelected()
+            layoutIsSelected()
             
         case 3:
             buttonLayout1.isSelected = false
@@ -111,13 +110,13 @@ class ViewController: UIViewController {
             
             buttonUpRight.isHidden = false
             buttonDownRight.isHidden = false
-            isSelected()
+            layoutIsSelected()
         default:
             break
         }
     }
     
-    func isSelected() {
+    func layoutIsSelected() {
         if buttonLayout1.isSelected == true {
             layout1Selected.isHidden = false
             layout2Selected.isHidden = true
@@ -135,37 +134,34 @@ class ViewController: UIViewController {
         }
     }
     
-    func tapGesture() {
-        let tapUpLeftButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+    func buttonImageViewTapped() {
+        let tapUpLeftButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseImage(_:)))
         buttonUpLeft.isUserInteractionEnabled = true
         buttonUpLeft.addGestureRecognizer(tapUpLeftButtonRecognizer)
         
-        
-        let tapUpRightButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+        let tapUpRightButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseImage(_:)))
         buttonUpRight.isUserInteractionEnabled = true
         buttonUpRight.addGestureRecognizer(tapUpRightButtonRecognizer)
         
-        
-        let tapDownLeftButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+        let tapDownLeftButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseImage(_:)))
         buttonDownLeft.isUserInteractionEnabled = true
         buttonDownLeft.addGestureRecognizer(tapDownLeftButtonRecognizer)
         
-        
-        let tapDownRightButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+        let tapDownRightButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseImage(_:)))
         buttonDownRight.isUserInteractionEnabled = true
         buttonDownRight.addGestureRecognizer(tapDownRightButtonRecognizer)
         
     }
     
-    @objc func imageTapped(_ recognizer: UITapGestureRecognizer) {
+    @objc func chooseImage(_ recognizer: UITapGestureRecognizer) {
         if checkLibraryAuthorization() {
             var newImage = recognizer.view
-            imageTest = newImage as! UIImageView?
+            buttonImageView = newImage as! UIImageView?
             imagePicked = UIImagePickerController()
             imagePicked?.delegate = self
             imagePicked?.sourceType = .savedPhotosAlbum
             guard let imagePickerSecurity = imagePicked else { return }
-            
+    
             present(imagePickerSecurity, animated: true)
             
         } else {
@@ -176,9 +172,8 @@ class ViewController: UIViewController {
     }
     
     func insertPickedImageIntoMainGrid(_ image: UIImage) {
-        print(imageTest?.contentMode == .scaleAspectFill)
-        imageTest?.contentMode = .scaleAspectFill
-        imageTest?.image = image
+        buttonImageView?.contentMode = .scaleAspectFill
+        buttonImageView?.image = image
     }
     
     func addSwipGestureRecognizer() {
@@ -187,7 +182,6 @@ class ViewController: UIViewController {
         
         let swipeLeftGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeGridCentralView(_:)))
         swipeLeftGestureRecognizer.direction = .left
-        
         
         view.addGestureRecognizer(swipeUpGestureRecognizer)
         view.addGestureRecognizer(swipeLeftGestureRecognizer)
@@ -200,7 +194,6 @@ class ViewController: UIViewController {
             shareTheLayout(direction: .up)
             
         } else if UIDevice.current.orientation.isLandscape, recognizer.direction == .left {
-            
             self.animationLandscape()
             shareTheLayout(direction: .left)
             
@@ -227,16 +220,13 @@ class ViewController: UIViewController {
         guard let activityVC = activityViewController else { return }
         
         activityVC.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
-            
             UIView.animate(withDuration: 0.4) {
                 self.gridCentralView.transform = .identity
                 self.swipeUpView.transform = .identity
                 self.activityViewController = nil
             }
-            
         }
         present(activityVC, animated: true, completion: nil)
-        
     }
 }
 
@@ -248,7 +238,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             insertPickedImageIntoMainGrid(originalImage)
             dismiss(animated: true) {
                 self.imagePicked = nil
-                self.imageTest = nil
+                self.buttonImageView = nil
             }
         }
     }
