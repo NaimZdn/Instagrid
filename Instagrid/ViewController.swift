@@ -9,12 +9,17 @@ import UIKit
 import Photos
 
 class ViewController: UIViewController {
-    
+    // MARK: - Public Properties
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+    // MARK: - Private Properties
     private var buttonImage: UIButton?
     private var imagePicked: UIImagePickerController?
     private var buttonImageView: UIImageView?
     private var activityViewController: UIActivityViewController?
     
+    // MARK: - Properties connected to storyboard
     @IBOutlet weak var swipeUpView: UIStackView!
     
     @IBOutlet weak var buttonUpLeft: UIImageView!
@@ -32,6 +37,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var gridCentralView: UIView!
     
+    // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,15 +51,11 @@ class ViewController: UIViewController {
         
         layout3Selected.isHidden = false
         
-        addSwipGestureRecognizer()
+        addSwipeGestureRecognizer()
         buttonImageViewTapped()
         
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
-    
+    // MARK: - Security Mathods
     func checkLibraryAuthorization() -> Bool {
         var status = false
         
@@ -82,7 +84,7 @@ class ViewController: UIViewController {
         
         return status
     }
-    
+    // MARK: - Layout Buttons Methods
     @IBAction func layoutButtonsTapped(_ sender: UIButton) {
         switch sender.tag {
         case 1:
@@ -133,7 +135,7 @@ class ViewController: UIViewController {
             layout3Selected.isHidden = false
         }
     }
-    
+    // MARK: - Grid Central Views Methods
     func buttonImageViewTapped() {
         let tapUpLeftButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseImage(_:)))
         buttonUpLeft.isUserInteractionEnabled = true
@@ -155,7 +157,7 @@ class ViewController: UIViewController {
     
     @objc func chooseImage(_ recognizer: UITapGestureRecognizer) {
         if checkLibraryAuthorization() {
-            var newImage = recognizer.view
+            let newImage = recognizer.view
             buttonImageView = newImage as! UIImageView?
             imagePicked = UIImagePickerController()
             imagePicked?.delegate = self
@@ -176,7 +178,8 @@ class ViewController: UIViewController {
         buttonImageView?.image = image
     }
     
-    func addSwipGestureRecognizer() {
+    // MARK: - Share and Swipe Methods
+    func addSwipeGestureRecognizer() {
         let swipeUpGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeGridCentralView(_:)))
         swipeUpGestureRecognizer.direction = .up
         
@@ -229,7 +232,7 @@ class ViewController: UIViewController {
         present(activityVC, animated: true, completion: nil)
     }
 }
-
+//MARK: - Extension
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ _picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any] ) {
