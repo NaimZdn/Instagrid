@@ -12,14 +12,16 @@ class ViewController: UIViewController {
     
     private var buttonImage: UIButton?
     private var imagePicked: UIImagePickerController?
+    private var imageTest: UIImageView?
     private var activityViewController: UIActivityViewController?
+    private var imageTapped: UIImageView?
     
     @IBOutlet weak var swipeUpView: UIStackView!
     
-    @IBOutlet weak var buttonUpLeft: UIButton!
-    @IBOutlet weak var buttonUpRight: UIButton!
-    @IBOutlet weak var buttonDownLeft: UIButton!
-    @IBOutlet weak var buttonDownRight: UIButton!
+    @IBOutlet weak var buttonUpLeft: UIImageView!
+    @IBOutlet weak var buttonUpRight: UIImageView!
+    @IBOutlet weak var buttonDownLeft: UIImageView!
+    @IBOutlet weak var buttonDownRight: UIImageView!
     
     @IBOutlet weak var buttonLayout1: UIButton!
     @IBOutlet weak var buttonLayout2: UIButton!
@@ -43,8 +45,50 @@ class ViewController: UIViewController {
         buttonLayout3.tag = 3
         
         layout3Selected.isHidden = false
-     
+        
         addSwipGestureRecognizer()
+        tapGesture()
+        
+    }
+    
+    func tapGesture() {
+        let tapUpLeftButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+            buttonUpLeft.isUserInteractionEnabled = true
+            buttonUpLeft.addGestureRecognizer(tapUpLeftButtonRecognizer)
+        
+        
+        let tapUpRightButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+            buttonUpRight.isUserInteractionEnabled = true
+            buttonUpRight.addGestureRecognizer(tapUpRightButtonRecognizer)
+        
+      
+        let tapDownLeftButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+            buttonDownLeft.isUserInteractionEnabled = true
+            buttonDownLeft.addGestureRecognizer(tapDownLeftButtonRecognizer)
+    
+ 
+        let tapDownRightButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+            buttonDownRight.isUserInteractionEnabled = true
+            buttonDownRight.addGestureRecognizer(tapDownRightButtonRecognizer)
+        
+    }
+    
+    @objc func imageTapped(_ recognizer: UITapGestureRecognizer) {
+        var newImage = recognizer.view
+        imageTest = newImage as! UIImageView?
+        if checkLibraryAuthorization() {
+            imagePicked = UIImagePickerController()
+            imagePicked?.delegate = self
+            imagePicked?.sourceType = .savedPhotosAlbum
+            guard let imagePickerSecurity = imagePicked else { return }
+            
+            present(imagePickerSecurity, animated: true)
+            
+        } else {
+            let accessDenied = UIAlertController(title: "Acces denied", message: "Please authorize the access inside your phone parameters's", preferredStyle: UIAlertController.Style.alert)
+            accessDenied.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(accessDenied, animated: true, completion: nil)
+        }
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -67,12 +111,12 @@ class ViewController: UIViewController {
  
         if UIDevice.current.orientation.isPortrait, recognizer.direction == .up{
             self.animationPortrait()
-            
+            shareTheLayout(direction: .up)
             
         } else if UIDevice.current.orientation.isLandscape, recognizer.direction == .left {
             
             self.animationLandscape()
-           
+            shareTheLayout(direction: .left)
             
         }
     }
@@ -91,21 +135,28 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func addPhoto(_ sender: UIButton) {
-        if checkLibraryAuthorization() {
-            buttonImage = sender
-            imagePicked = UIImagePickerController()
-            imagePicked?.delegate = self
-            imagePicked?.sourceType = .savedPhotosAlbum
-            guard let imagePickerSecurity = imagePicked else { return }
-
-            present(imagePickerSecurity, animated: true)
+    private func shareTheLayout(direction: UISwipeGestureRecognizer.Direction){
+        guard let imageView = gridCentralView.asImage() else { return }
+        activityViewController = UIActivityViewController(activityItems: [imageView as UIImage], applicationActivities: nil)
+        guard let activityVC = activityViewController else { return }
+        
+        activityVC.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             
-        } else {
-            let accessDenied = UIAlertController(title: "Acces denied", message: "Please authorize the access inside your phone parameters's", preferredStyle: UIAlertController.Style.alert)
-            accessDenied.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(accessDenied, animated: true, completion: nil)
+            UIView.animate(withDuration: 0.4) {
+                self.gridCentralView.transform = .identity
+                self.swipeUpView.transform = .identity
+                self.activityViewController = nil
+            }
+            
         }
+        present(activityVC, animated: true, completion: nil)
+        
+    }
+
+    func insertPickedImageIntoMainGrid(_ image: UIImage) {
+        print(imageTest?.contentMode == .scaleAspectFill)
+        imageTest?.contentMode = .scaleAspectFill
+        imageTest?.image = image
     }
 
     @IBAction func layoutButtonsTapped(_ sender: UIButton) {
@@ -190,12 +241,12 @@ class ViewController: UIViewController {
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ _picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any] ) {
-        
+       
         if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            buttonImage?.setImage(originalImage, for: .normal)
+            insertPickedImageIntoMainGrid(originalImage)
             dismiss(animated: true) {
                 self.imagePicked = nil
-                self.buttonImage = nil
+                self.imageTest = nil
             }
         }
     }
