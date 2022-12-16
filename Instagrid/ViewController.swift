@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     private var buttonImage: UIButton?
     private var imagePicked: UIImagePickerController?
-    
+    private var activityViewController: UIActivityViewController?
     
     @IBOutlet weak var swipeUpView: UIStackView!
     
@@ -29,11 +29,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var layout2Selected: UIImageView!
     @IBOutlet weak var layout3Selected: UIImageView!
     
-    
     @IBOutlet weak var gridCentralView: UIView!
-    @IBOutlet weak var centerYConstraint: NSLayoutConstraint!
-    @IBOutlet weak var centerXConstraint: NSLayoutConstraint!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,8 +54,10 @@ class ViewController: UIViewController {
     func addSwipGestureRecognizer() {
         let swipeUpGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeGridCentralView(_:)))
         swipeUpGestureRecognizer.direction = .up
+        
         let swipeLeftGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeGridCentralView(_:)))
         swipeLeftGestureRecognizer.direction = .left
+       
         
         view.addGestureRecognizer(swipeUpGestureRecognizer)
         view.addGestureRecognizer(swipeLeftGestureRecognizer)
@@ -67,32 +66,30 @@ class ViewController: UIViewController {
     @objc func swipeGridCentralView(_ recognizer: UISwipeGestureRecognizer) {
  
         if UIDevice.current.orientation.isPortrait, recognizer.direction == .up{
+            self.animationPortrait()
             
-            self.animationPortrait(constraint: -UIScreen.main.bounds.height)
             
         } else if UIDevice.current.orientation.isLandscape, recognizer.direction == .left {
             
-            self.animationLandscape(constraint: -UIScreen.main.bounds.width)
+            self.animationLandscape()
+           
             
         }
     }
     
-    func animationPortrait(constraint: CGFloat) {
+    func animationLandscape() {
         UIView.animate(withDuration: 0.6) {
-            self.centerYConstraint.constant = constraint
-            self.view.layoutIfNeeded()
-            
+            self.gridCentralView.transform = CGAffineTransform(translationX: -UIScreen.main.bounds.width, y: 0)
+            self.swipeUpView.transform = CGAffineTransform(translationX: -UIScreen.main.bounds.width, y: 0)
         }
     }
     
-    func animationLandscape(constraint: CGFloat) {
+    func animationPortrait() {
         UIView.animate(withDuration: 0.6) {
-            self.centerXConstraint.constant = constraint
-            self.view.layoutIfNeeded()
+            self.gridCentralView.transform = CGAffineTransform(translationX: 0, y: -UIScreen.main.bounds.height)
+            self.swipeUpView.transform = CGAffineTransform(translationX: 0, y: -UIScreen.main.bounds.height)
         }
     }
-    
-    
     
     @IBAction func addPhoto(_ sender: UIButton) {
         if checkLibraryAuthorization() {
@@ -118,8 +115,8 @@ class ViewController: UIViewController {
             buttonLayout2.isSelected = false
             buttonLayout3.isSelected = false
             
-            buttonUpLeft.isHidden = true
-            buttonDownLeft.isHidden = false
+            buttonUpRight.isHidden = true
+            buttonDownRight.isHidden = false
             isSelected()
         
         case 2:
@@ -127,8 +124,8 @@ class ViewController: UIViewController {
             buttonLayout2.isSelected = true
             buttonLayout3.isSelected = false
             
-            buttonUpLeft.isHidden = false
-            buttonDownLeft.isHidden = true
+            buttonUpRight.isHidden = false
+            buttonDownRight.isHidden = true
             isSelected()
             
         case 3:
@@ -136,8 +133,8 @@ class ViewController: UIViewController {
             buttonLayout2.isSelected = false
             buttonLayout3.isSelected = true
             
-            buttonUpLeft.isHidden = false
-            buttonDownLeft.isHidden = false
+            buttonUpRight.isHidden = false
+            buttonDownRight.isHidden = false
             isSelected()
         default:
             break
