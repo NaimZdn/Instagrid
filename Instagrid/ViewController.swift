@@ -55,7 +55,9 @@ class ViewController: UIViewController {
         buttonImageViewTapped()
         
     }
-    // MARK: - Security Mathods
+    // MARK: - Security Methods
+    
+    
     func checkLibraryAuthorization() -> Bool {
         var status = false
         
@@ -71,7 +73,6 @@ class ViewController: UIViewController {
                     status = true
                 }
             })
-            
         case .restricted, .denied:
             break
             
@@ -81,7 +82,6 @@ class ViewController: UIViewController {
         @unknown default :
             break
         }
-        
         return status
     }
     // MARK: - Layout Buttons Methods
@@ -191,15 +191,30 @@ class ViewController: UIViewController {
     }
     
     @objc func swipeGridCentralView(_ recognizer: UISwipeGestureRecognizer) {
-        
-        if UIDevice.current.orientation.isPortrait, recognizer.direction == .up{
-            self.animationPortrait()
-            shareTheLayout(direction: .up)
+        if #available(iOS 16.0, *) {
+            print("ios16")
+            guard let windowScene = view.window?.windowScene else { return }
+            windowScene.requestGeometryUpdate(.iOS(interfaceOrientations:.portrait))
             
-        } else if UIDevice.current.orientation.isLandscape, recognizer.direction == .left {
-            self.animationLandscape()
-            shareTheLayout(direction: .left)
-            
+            if windowScene.effectiveGeometry.interfaceOrientation.isPortrait, recognizer.direction == .up{
+                self.animationPortrait()
+                shareTheLayout(direction: .up)
+                
+            } else if windowScene.effectiveGeometry.interfaceOrientation.isLandscape, recognizer.direction == .left {
+                self.animationLandscape()
+                shareTheLayout(direction: .left)
+            }
+        } else {
+            // Fallback on earlier versions
+            if UIDevice.current.orientation.isPortrait, recognizer.direction == .up{
+                self.animationPortrait()
+                shareTheLayout(direction: .up)
+                
+            } else if UIDevice.current.orientation.isLandscape, recognizer.direction == .left {
+                self.animationLandscape()
+                shareTheLayout(direction: .left)
+                
+            }
         }
     }
     
@@ -217,7 +232,7 @@ class ViewController: UIViewController {
         }
     }
     
-    private func shareTheLayout(direction: UISwipeGestureRecognizer.Direction){
+    func shareTheLayout(direction: UISwipeGestureRecognizer.Direction){
         guard let imageView = gridCentralView.asImage() else { return }
         activityViewController = UIActivityViewController(activityItems: [imageView as UIImage], applicationActivities: nil)
         guard let activityVC = activityViewController else { return }
