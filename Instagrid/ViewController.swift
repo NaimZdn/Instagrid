@@ -58,7 +58,7 @@ class ViewController: UIViewController {
     // MARK: - Security Methods
     
     // Added a function to check library authorization.
-    func checkLibraryAuthorization() -> Bool {
+    private func checkLibraryAuthorization() -> Bool {
         var status = false
         
         let libraryAuthorization = PHPhotoLibrary.authorizationStatus()
@@ -120,7 +120,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func layoutIsSelected() {
+    private func layoutIsSelected() {
         if buttonLayout1.isSelected == true {
             layout1Selected.isHidden = false
             layout2Selected.isHidden = true
@@ -140,7 +140,7 @@ class ViewController: UIViewController {
     // MARK: - Grid Central Views Methods
     
     // We create a method to add a tap recognizer when the user want to add an image inside the grid central view.
-    func buttonImageViewTapped() {
+    private func buttonImageViewTapped() {
         // We are a case for each button.
         let tapUpLeftButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseImage(_:)))
         buttonUpLeft.isUserInteractionEnabled = true
@@ -181,7 +181,7 @@ class ViewController: UIViewController {
     }
     
     // We create a method to change the content mode of button image view.
-    func insertPickedImageIntoMainGrid(_ image: UIImage) {
+    private func insertPickedImageIntoMainGrid(_ image: UIImage) {
         buttonImageView?.contentMode = .scaleAspectFill
         buttonImageView?.image = image
     }
@@ -189,7 +189,7 @@ class ViewController: UIViewController {
     // MARK: - Share and Swipe Methods
     
     // We create a method to add a swipe gesture recognizer when the user want to share his layout.
-    func addSwipeGestureRecognizer() {
+    private func addSwipeGestureRecognizer() {
         // We have a swipe gesture recognizer for 2 orientation (portrait and landscape).
         let swipeUpGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeGridCentralView(_:)))
         swipeUpGestureRecognizer.direction = .up
@@ -234,7 +234,7 @@ class ViewController: UIViewController {
     }
     
     // We create a method to define animation for the Landscape orientation's.
-    func animationLandscape() {
+    private func animationLandscape() {
         UIView.animate(withDuration: 0.6) {
             self.gridCentralView.transform = CGAffineTransform(translationX: -UIScreen.main.bounds.width, y: 0)
             self.swipeUpView.transform = CGAffineTransform(translationX: -UIScreen.main.bounds.width, y: 0)
@@ -242,7 +242,7 @@ class ViewController: UIViewController {
     }
     
     // We create a method to define animation for the Portrait orientation's.
-    func animationPortrait() {
+    private func animationPortrait() {
         UIView.animate(withDuration: 0.6) {
             self.gridCentralView.transform = CGAffineTransform(translationX: 0, y: -UIScreen.main.bounds.height)
             self.swipeUpView.transform = CGAffineTransform(translationX: 0, y: -UIScreen.main.bounds.height)
@@ -250,7 +250,7 @@ class ViewController: UIViewController {
     }
     
     // We create a function to display the activity view controller.
-    func shareTheLayout(direction: UISwipeGestureRecognizer.Direction){
+    private func shareTheLayout(direction: UISwipeGestureRecognizer.Direction){
         guard let imageView = gridCentralView.asImage() else { return } // We control if the grid central view as image.
         activityViewController = UIActivityViewController(activityItems: [imageView as UIImage], applicationActivities: nil)
         guard let activityVC = activityViewController else { return }
