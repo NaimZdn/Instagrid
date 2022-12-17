@@ -62,18 +62,50 @@
 		085373D3293B58210026363C /* Instagrid */ = {
 			isa = PBXGroup;
 			children = (
+				0876F6CD294E12BC00468173 /* Supporting Files */,
+				0876F6CB294E128200468173 /* View */,
+				0876F6CC294E128B00468173 /* Controller */,
+				0876F6CE294E132500468173 /* Extensions */,
+			);
+			path = Instagrid;
+			sourceTree = "<group>";
+		};
+		0876F6CB294E128200468173 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				085373DA293B58210026363C /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0876F6CC294E128B00468173 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				085373D8293B58210026363C /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0876F6CD294E12BC00468173 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
 				085373D4293B58210026363C /* AppDelegate.swift */,
 				085373D6293B58210026363C /* SceneDelegate.swift */,
-				085373D8293B58210026363C /* ViewController.swift */,
-				085373DA293B58210026363C /* Main.storyboard */,
-				08DD58932947892100ABBE8D /* UIView.swift */,
 				085373DD293B58260026363C /* Assets.xcassets */,
-				085373DF293B58260026363C /* LaunchScreen.storyboard */,
 				085373E2293B58260026363C /* Info.plist */,
 				0853740F2940BA530026363C /* Delm-Medium.otf */,
 				0853740E2940BA530026363C /* ThirstySoftRegular.otf */,
+				085373DF293B58260026363C /* LaunchScreen.storyboard */,
 			);
-			path = Instagrid;
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0876F6CE294E132500468173 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				08DD58932947892100ABBE8D /* UIView.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,7 +333,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MC9L8ULM7A;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Instagrid/Info.plist;
+				INFOPLIST_FILE = "Instagrid/Supporting Files/Info.plist";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -331,7 +363,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MC9L8ULM7A;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Instagrid/Info.plist;
+				INFOPLIST_FILE = "Instagrid/Supporting Files/Info.plist";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
