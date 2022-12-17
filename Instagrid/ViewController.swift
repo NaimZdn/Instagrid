@@ -57,7 +57,7 @@ class ViewController: UIViewController {
     }
     // MARK: - Security Methods
     
-    
+    // Added a function to check library authorization.
     func checkLibraryAuthorization() -> Bool {
         var status = false
         
@@ -66,7 +66,7 @@ class ViewController: UIViewController {
         case .authorized:
             status = true
             
-        case .notDetermined:
+        case .notDetermined: // If the authorization isn't determined we check if the new status is authorized or not.
             PHPhotoLibrary.requestAuthorization({
                 (newStatus) in
                 if newStatus == PHAuthorizationStatus.authorized {
@@ -85,6 +85,8 @@ class ViewController: UIViewController {
         return status
     }
     // MARK: - Layout Buttons Methods
+    
+    // Added an action to control which layout is selected.
     @IBAction func layoutButtonsTapped(_ sender: UIButton) {
         switch sender.tag {
         case 1:
@@ -136,7 +138,10 @@ class ViewController: UIViewController {
         }
     }
     // MARK: - Grid Central Views Methods
+    
+    // We create a method to add a tap recognizer when the user want to add an image inside the grid central view.
     func buttonImageViewTapped() {
+        // We are a case for each button.
         let tapUpLeftButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooseImage(_:)))
         buttonUpLeft.isUserInteractionEnabled = true
         buttonUpLeft.addGestureRecognizer(tapUpLeftButtonRecognizer)
@@ -155,31 +160,37 @@ class ViewController: UIViewController {
         
     }
     
+    // We add a method their call when the user tap the button. This method permit to choose an image inside user's library.
     @objc func chooseImage(_ recognizer: UITapGestureRecognizer) {
-        if checkLibraryAuthorization() {
+        if checkLibraryAuthorization() { // We check the library autorization, if their true we permit the user to choose an image.
             let newImage = recognizer.view
-            buttonImageView = newImage as! UIImageView?
+            buttonImageView = newImage as! UIImageView? // We check if the button is an UIImageView
             imagePicked = UIImagePickerController()
-            imagePicked?.delegate = self
-            imagePicked?.sourceType = .savedPhotosAlbum
+            imagePicked?.delegate = self // We call the delegate property because she's necessary to use the picker controller.
+            imagePicked?.sourceType = .savedPhotosAlbum // We use the user library for the sourceType.
             guard let imagePickerSecurity = imagePicked else { return }
     
             present(imagePickerSecurity, animated: true)
             
         } else {
+            // We create an alert if the user not authorize the library acces.
             let accessDenied = UIAlertController(title: "Acces denied", message: "Please authorize the access inside your phone parameters's", preferredStyle: UIAlertController.Style.alert)
             accessDenied.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(accessDenied, animated: true, completion: nil)
         }
     }
     
+    // We create a method to change the content mode of button image view.
     func insertPickedImageIntoMainGrid(_ image: UIImage) {
         buttonImageView?.contentMode = .scaleAspectFill
         buttonImageView?.image = image
     }
     
     // MARK: - Share and Swipe Methods
+    
+    // We create a method to add a swipe gesture recognizer when the user want to share his layout.
     func addSwipeGestureRecognizer() {
+        // We have a swipe gesture recognizer for 2 orientation (portrait and landscape).
         let swipeUpGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeGridCentralView(_:)))
         swipeUpGestureRecognizer.direction = .up
         
@@ -190,9 +201,13 @@ class ViewController: UIViewController {
         view.addGestureRecognizer(swipeLeftGestureRecognizer)
     }
     
+    // We create a method when the swipe gesture is recognized.
     @objc func swipeGridCentralView(_ recognizer: UISwipeGestureRecognizer) {
+        
+        // We create a condition to control of the current device version is iOS16.
+        // If this is the case, the property to control device orientation is not the same to iOS15 or less version.
         if #available(iOS 16.0, *) {
-            print("ios16")
+            
             guard let windowScene = view.window?.windowScene else { return }
             windowScene.requestGeometryUpdate(.iOS(interfaceOrientations:.portrait))
             
@@ -218,6 +233,7 @@ class ViewController: UIViewController {
         }
     }
     
+    // We create a method to define animation for the Landscape orientation's.
     func animationLandscape() {
         UIView.animate(withDuration: 0.6) {
             self.gridCentralView.transform = CGAffineTransform(translationX: -UIScreen.main.bounds.width, y: 0)
@@ -225,6 +241,7 @@ class ViewController: UIViewController {
         }
     }
     
+    // We create a method to define animation for the Portrait orientation's.
     func animationPortrait() {
         UIView.animate(withDuration: 0.6) {
             self.gridCentralView.transform = CGAffineTransform(translationX: 0, y: -UIScreen.main.bounds.height)
@@ -232,13 +249,14 @@ class ViewController: UIViewController {
         }
     }
     
+    // We create a function to display the activity view controller.
     func shareTheLayout(direction: UISwipeGestureRecognizer.Direction){
-        guard let imageView = gridCentralView.asImage() else { return }
+        guard let imageView = gridCentralView.asImage() else { return } // We control if the grid central view as image.
         activityViewController = UIActivityViewController(activityItems: [imageView as UIImage], applicationActivities: nil)
         guard let activityVC = activityViewController else { return }
         
         activityVC.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
-            UIView.animate(withDuration: 0.4) {
+            UIView.animate(withDuration: 0.4) { // We transform each view in is identity position after when we close the activity controller.
                 self.gridCentralView.transform = .identity
                 self.swipeUpView.transform = .identity
                 self.activityViewController = nil
@@ -248,6 +266,8 @@ class ViewController: UIViewController {
     }
 }
 //MARK: - Extension
+
+// We create an extension to make the possibility, for the user, to pick an image inside their library.
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ _picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any] ) {
