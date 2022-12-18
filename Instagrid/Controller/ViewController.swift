@@ -161,7 +161,7 @@ class ViewController: UIViewController {
     }
     
     // We add a method their call when the user tap the button. This method permit to choose an image inside user's library.
-    @objc func chooseImage(_ recognizer: UITapGestureRecognizer) {
+    @objc private func chooseImage(_ recognizer: UITapGestureRecognizer) {
         if checkLibraryAuthorization() { // We check the library autorization, if their true we permit the user to choose an image.
             let newImage = recognizer.view
             buttonImageView = newImage as! UIImageView? // We check if the button is an UIImageView
