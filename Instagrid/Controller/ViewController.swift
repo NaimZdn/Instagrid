@@ -209,7 +209,6 @@ class ViewController: UIViewController {
         if #available(iOS 16.0, *) {
             
             guard let windowScene = view.window?.windowScene else { return }
-            windowScene.requestGeometryUpdate(.iOS(interfaceOrientations:.portrait))
             
             if windowScene.effectiveGeometry.interfaceOrientation.isPortrait, recognizer.direction == .up{
                 self.animationPortrait()
